@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Club/">
+    <Project Path="Club.Domain/Club.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Common/">
+    <Project Path="Common/Common.csproj" />
+  </Folder>
+</Solution>
