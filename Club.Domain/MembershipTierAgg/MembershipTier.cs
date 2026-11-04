@@ -12,13 +12,9 @@ namespace Club.Domain.MembershipTierAgg;
 public class MembershipTier : AggregateRoot
 {
     public string Title { get; private set; }
-
     public TierType Type { get; private set; }
-
     private readonly List<TierRequirement> _requirements = new();
-
-    public IReadOnlyCollection<TierRequirement> Requirements
-        => _requirements.AsReadOnly();
+    public IReadOnlyCollection<TierRequirement> Requirements => _requirements.AsReadOnly();
 
     protected MembershipTier()
     {

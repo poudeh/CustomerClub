@@ -13,7 +13,7 @@ namespace Club.Domain.ClubMemberAgg;
 public class ClubMember : AggregateRoot
 {
     public string MemberCode { get; private set; }
-    public Guid CustomerId { get; private set; }
+    public long CustomerId { get; private set; }
     public MemberStatus Status { get; private set; }
     public DateTime JoinedAt { get; private set; }
 
@@ -21,10 +21,10 @@ public class ClubMember : AggregateRoot
     {
     }
 
-    public ClubMember(Guid customerId, string memberCode)
+    public ClubMember(long customerId, string memberCode)
     {
-        if (customerId == Guid.Empty)
-            throw new ArgumentException("CustomerId is required.");
+        if (customerId <= 0)
+            throw new ArgumentException("CustomerId cannot be Negative.");
 
         if (string.IsNullOrWhiteSpace(memberCode))
             throw new ArgumentException("MemberCode is required.");

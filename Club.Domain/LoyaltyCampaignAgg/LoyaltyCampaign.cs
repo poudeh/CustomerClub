@@ -4,23 +4,18 @@ using Common.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace Club.Domain.LoyaltyCampaignAgg;
-
+/// <summary>
+/// For Campaigns Like sms Campaign
+/// </summary>
 public class LoyaltyCampaign:AggregateRoot
 {
     public string Title { get; private set; }
     public string Message { get; private set; }
-
     public LoyaltyCampaignStatus Status { get; private set; }
-
-    public DateTime CreatedAt { get; private set; }
     public DateTime? SentAt { get; private set; }
-
     private readonly List<CampaignRecipient> _recipients = new();
-
-    public IReadOnlyCollection<CampaignRecipient> Recipients =>
-        _recipients.AsReadOnly();
+    public IReadOnlyCollection<CampaignRecipient> Recipients => _recipients.AsReadOnly();
 
     protected LoyaltyCampaign()
     {
@@ -37,15 +32,14 @@ public class LoyaltyCampaign:AggregateRoot
         Title = title;
         Message = message;
         Status = LoyaltyCampaignStatus.Draft;
-        CreatedAt = DateTime.UtcNow;
     }
 
     // ADD RECIPIENT
-    public void AddRecipient(Guid customerId, string phoneNumber)
+    public void AddRecipient(long customerId, string phoneNumber)
     {
         EnsureCampaignIsEditable();
 
-        if (customerId == Guid.Empty)
+        if (customerId == 0)
             throw new ArgumentException("CustomerId is required.");
 
         if (string.IsNullOrWhiteSpace(phoneNumber))
@@ -59,7 +53,7 @@ public class LoyaltyCampaign:AggregateRoot
     }
 
     // REMOVE RECIPIENT
-    public void RemoveRecipient(Guid customerId)
+    public void RemoveRecipient(long customerId)
     {
         EnsureCampaignIsEditable();
 
@@ -102,7 +96,7 @@ public class LoyaltyCampaign:AggregateRoot
     }
 
     // MARK RECIPIENT AS SENT
-    public void MarkRecipientAsSent(Guid customerId)
+    public void MarkRecipientAsSent(long customerId)
     {
         EnsureCampaignIsSending();
 
@@ -114,7 +108,7 @@ public class LoyaltyCampaign:AggregateRoot
     }
 
     // MARK RECIPIENT AS FAILED
-    public void MarkRecipientAsFailed(Guid customerId, string error)
+    public void MarkRecipientAsFailed(long customerId, string error)
     {
         EnsureCampaignIsSending();
 
@@ -135,7 +129,7 @@ public class LoyaltyCampaign:AggregateRoot
         Status = LoyaltyCampaignStatus.Cancelled;
     }
 
-    private CampaignRecipient GetRecipient(Guid customerId)
+    private CampaignRecipient GetRecipient(long customerId)
     {
         return _recipients.FirstOrDefault(x => x.CustomerId == customerId)
             ?? throw new InvalidOperationException("Recipient not found.");

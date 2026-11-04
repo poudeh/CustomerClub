@@ -3,11 +3,11 @@ using Common.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace Club.Domain.MembershipTierAgg.Entities;
 
 public class TierRequirement : BaseEntity
 {
+    public long MembershipTierId { get; set; }
     public TierRequirementType Type { get; private set; }
     public RequirementOperator Operator { get; private set;}
     public decimal RequiredValue { get; private set; }

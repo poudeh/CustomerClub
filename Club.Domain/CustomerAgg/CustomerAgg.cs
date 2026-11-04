@@ -14,7 +14,6 @@ public class Customer : AggregateRoot
     public string Email { get; private set; }
     public CustomerType Type { get; private set; }
     public bool IsActive { get; private set; }
-    public DateTime CreatedAt { get; private set; }
 
     protected Customer()
     {
@@ -36,13 +35,9 @@ public class Customer : AggregateRoot
         Type = type;
 
         IsActive = true;
-        CreatedAt = DateTime.UtcNow;
     }
 
-    public void Activate()
-    {
-        IsActive = true;
-    }
+    public void Activate() => IsActive = true;
 
     public void Deactivate()
     {

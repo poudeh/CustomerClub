@@ -9,7 +9,7 @@ public class CampaignRecipient
 {
     public Guid Id { get; private set; }
 
-    public Guid CustomerId { get; private set; }
+    public long CustomerId { get; private set; }
 
     public string PhoneNumber { get; private set; }
 
@@ -23,7 +23,7 @@ public class CampaignRecipient
     {
     }
 
-    public CampaignRecipient(Guid customerId, string phoneNumber)
+    public CampaignRecipient(long customerId, string phoneNumber)
     {
         Id = Guid.NewGuid();
         CustomerId = customerId;

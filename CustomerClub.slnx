@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Club/">
     <Project Path="Club.Domain/Club.Domain.csproj" />
+    <Project Path="Club.Infrastructure/Club.Infrastructure.csproj" Id="929e56e5-fa09-4ee6-a73a-f5caf1f600b3" />
   </Folder>
   <Folder Name="/Common/">
     <Project Path="Common/Common.csproj" />

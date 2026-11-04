@@ -1,11 +1,5 @@
-﻿using Club.Domain.ClubMemberAgg;
-using Club.Domain.LoyaltyAccountAgg.Enums;
+﻿using Club.Domain.LoyaltyAccountAgg.Enums;
 using Common.Domain;
-using System;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Text;
-
 namespace Club.Domain.LoyaltyAccountAgg;
 /// <summary>
 /// مسئول مدیریت حساب امتیازی عضو باشگاه مشتریان است؛
@@ -18,7 +12,6 @@ public class LoyaltyAccount : AggregateRoot
     public decimal TotalEarnedPoints { get; private set; }
     public decimal TotalSpentPoints { get; private set; }
     public LoyaltyAccountStatus Status { get; private set; }
-    public DateTime CreatedAt { get; private set; }
     public DateTime? LastUpdatedAt { get; private set; }
     protected LoyaltyAccount()
     {
@@ -31,7 +24,6 @@ public class LoyaltyAccount : AggregateRoot
         TotalEarnedPoints = 0;
         TotalSpentPoints = 0;
         Status = LoyaltyAccountStatus.Active;
-        CreatedAt = DateTime.UtcNow;
     }
 
 
