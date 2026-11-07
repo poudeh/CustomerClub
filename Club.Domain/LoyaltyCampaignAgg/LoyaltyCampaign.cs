@@ -4,6 +4,8 @@ using Common.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common.Common.Domain;
+
 namespace Club.Domain.LoyaltyCampaignAgg;
 /// <summary>
 /// For Campaigns Like sms Campaign
@@ -35,7 +37,7 @@ public class LoyaltyCampaign:AggregateRoot
     }
 
     // ADD RECIPIENT
-    public void AddRecipient(long customerId, string phoneNumber)
+    public void AddRecipient(long customerId,long loyaltyCampaignId, string phoneNumber)
     {
         EnsureCampaignIsEditable();
 
@@ -49,7 +51,7 @@ public class LoyaltyCampaign:AggregateRoot
             throw new InvalidOperationException(
                 "Customer already exists in this campaign.");
 
-        _recipients.Add(new CampaignRecipient(customerId, phoneNumber));
+        _recipients.Add(new CampaignRecipient(customerId, loyaltyCampaignId, phoneNumber));
     }
 
     // REMOVE RECIPIENT

@@ -1,10 +1,11 @@
 ﻿using Common.Application.FileUtil;
 using Common.Application.SecurityUtil;
+using Common.Application.Validation;
 using Common.Domain;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
-namespace Common.Application.Validation.FluentValidations
+namespace Common.Common.Application.Validation.FluentValidations
 {
     public static class FluentValidations
     {

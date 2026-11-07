@@ -3,6 +3,8 @@ using Common.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common.Common.Domain;
+
 namespace Club.Domain.MembershipTierAgg.Entities;
 
 public class TierRequirement : BaseEntity
@@ -11,6 +13,8 @@ public class TierRequirement : BaseEntity
     public TierRequirementType Type { get; private set; }
     public RequirementOperator Operator { get; private set;}
     public decimal RequiredValue { get; private set; }
+
+    public virtual MembershipTier MembershipTier { get; set; }
     protected TierRequirement()
     {
     }

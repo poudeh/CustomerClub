@@ -45,6 +45,7 @@
         public const string NotFoundMessage = "اطلاعات یافت نشد";
         public string Message { get; set; }
         public string Title { get; set; } = null;
+        public List<string> Errors { get; set; }
         public OperationResultStatus Status { get; set; }
 
         public static OperationResult Error()
@@ -79,6 +80,16 @@
                 Message = message,
             };
         }
+
+        public static OperationResult Error(List<string> errors)
+        {
+            return new OperationResult
+            {
+                Status = OperationResultStatus.Error,
+                Errors = errors
+            };
+        }
+
         public static OperationResult Error(string message, OperationResultStatus status)
         {
             return new OperationResult()

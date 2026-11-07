@@ -4,6 +4,7 @@ using Common.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common.Common.Domain;
 
 namespace Club.Domain.MembershipTierAgg;
 /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Club.Domain.CustomerAgg.Enums;
+using Common.Common.Domain;
 using Common.Domain;
 
 namespace Club.Domain.CustomerAgg;
@@ -23,38 +24,28 @@ public class Customer : AggregateRoot
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Customer name is required.");
-
         if (string.IsNullOrWhiteSpace(nationalId))
             throw new ArgumentException("NationalId is required.");
-
         Name = name;
         NationalId = nationalId;
         EconomicCode = economicCode;
         PhoneNumber = phoneNumber;
         Email = email;
         Type = type;
-
         IsActive = true;
     }
 
-    public void Activate() => IsActive = true;
-
-    public void Deactivate()
-    {
-        IsActive = false;
-    }
-
-    public void UpdateContactInfo(string phoneNumber, string email)
-    {
-        PhoneNumber = phoneNumber;
-        Email = email;
-    }
-
-    public void UpdateName(string name)
+    public void Edit(string name, string economicCode, string phoneNumber, string email, CustomerType type)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Customer name is required.");
 
         Name = name;
+        EconomicCode = economicCode;
+        PhoneNumber = phoneNumber;
+        Email = email;
+        Type = type;
     }
+
+    public void ToggleActivation() => IsActive = !IsActive;
 }

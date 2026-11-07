@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Text;
+using Common.Application.Validation;
 using FluentValidation;
 using MediatR;
 
-namespace Common.Application.Validation
+namespace Common.Common.Application.Validation
 {
     public class CommandValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
@@ -19,7 +15,7 @@ namespace Common.Application.Validation
             _validators = validators;
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request,RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var errors = _validators
                 .Select(v => v.Validate(request))
@@ -41,5 +37,7 @@ namespace Common.Application.Validation
             var response = await next();
             return response;
         }
+
+
     }
 }

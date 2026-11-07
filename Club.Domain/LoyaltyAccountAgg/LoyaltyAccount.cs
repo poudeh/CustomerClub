@@ -1,4 +1,5 @@
 ﻿using Club.Domain.LoyaltyAccountAgg.Enums;
+using Common.Common.Domain;
 using Common.Domain;
 namespace Club.Domain.LoyaltyAccountAgg;
 /// <summary>
@@ -30,13 +31,10 @@ public class LoyaltyAccount : AggregateRoot
     public void EarnPoints(decimal points)
     {
         EnsureAccountIsActive();
-
         if (points <= 0)
             throw new ArgumentException("Points must be greater than zero.");
-
         Balance += points;
         TotalEarnedPoints += points;
-
         UpdateLastModified();
     }
 
@@ -44,17 +42,14 @@ public class LoyaltyAccount : AggregateRoot
     public void SpendPoints(decimal points)
     {
         EnsureAccountIsActive();
-
         if (points <= 0)
             throw new ArgumentException("Points must be greater than zero.");
 
         if (points > Balance)
             throw new InvalidOperationException(
                 "Insufficient points balance.");
-
         Balance -= points;
         TotalSpentPoints += points;
-
         UpdateLastModified();
     }
 
@@ -62,17 +57,13 @@ public class LoyaltyAccount : AggregateRoot
     public void RefundPoints(decimal points)
     {
         EnsureAccountIsActive();
-
         if (points <= 0)
             throw new ArgumentException("Points must be greater than zero.");
-
         if (points > TotalSpentPoints)
             throw new InvalidOperationException(
                 "Refund points cannot exceed total spent points.");
-
         Balance += points;
         TotalSpentPoints -= points;
-
         UpdateLastModified();
     }
 
@@ -94,41 +85,35 @@ public class LoyaltyAccount : AggregateRoot
     }
 
 
-    public void Block()
+    public void ChangeStatus(LoyaltyAccountStatus status)
     {
-        if (Status != LoyaltyAccountStatus.Active)
-            throw new InvalidOperationException(
-                "Only active accounts can be blocked.");
+        switch (status)
+        {
+            case LoyaltyAccountStatus.Blocked:
+                if (Status != LoyaltyAccountStatus.Active)
+                    throw new InvalidOperationException(
+                        "Only active accounts can be blocked.");
+                break;
 
-        Status = LoyaltyAccountStatus.Blocked;
+            case LoyaltyAccountStatus.Active:
+                if (Status != LoyaltyAccountStatus.Blocked)
+                    throw new InvalidOperationException(
+                        "Only blocked accounts can be unblocked.");
+                break;
 
+            case LoyaltyAccountStatus.Closed:
+                if (Status == LoyaltyAccountStatus.Closed)
+                    throw new InvalidOperationException(
+                        "Account is already closed.");
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException(nameof(status));
+        }
+
+        Status = status;
         UpdateLastModified();
     }
-
-
-    public void Unblock()
-    {
-        if (Status != LoyaltyAccountStatus.Blocked)
-            throw new InvalidOperationException(
-                "Only blocked accounts can be unblocked.");
-
-        Status = LoyaltyAccountStatus.Active;
-
-        UpdateLastModified();
-    }
-
-
-    public void Close()
-    {
-        if (Status == LoyaltyAccountStatus.Closed)
-            throw new InvalidOperationException(
-                "Account is already closed.");
-
-        Status = LoyaltyAccountStatus.Closed;
-
-        UpdateLastModified();
-    }
-
 
     private void EnsureAccountIsActive()
     {

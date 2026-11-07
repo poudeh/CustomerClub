@@ -12,6 +12,7 @@ using Shop.Infrastructure._Utilities.MediatR;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common.Common.Domain;
 
 namespace Club.Infrastructure.Persistent.Ef;
 

@@ -1,5 +1,6 @@
 ﻿using Club.Domain.LoyaltyAccountAgg;
 using Club.Domain.LoyaltyAccountAgg.Repository;
+using Club.Infrastructure._Utilities;
 using Shop.Infrastructure._Utilities;
 
 namespace Club.Infrastructure.Persistent.Ef.LoyaltyAccountAgg;

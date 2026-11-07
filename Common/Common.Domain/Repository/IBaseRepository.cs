@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
-namespace Common.Domain.Repository
+namespace Common.Common.Domain.Repository
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {

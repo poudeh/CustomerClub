@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Common.Application.Validation;
+using Common.AspNetCore;
 using Common.Domain.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace Common.AspNetCore.Middlewares;
+namespace Common.Common.AspNetCore.Middlewares;
 
 public static class ApiCustomExceptionHandlerMiddlewareExtensions
 {

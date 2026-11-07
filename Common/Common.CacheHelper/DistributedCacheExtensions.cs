@@ -2,7 +2,7 @@
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace Common.ChachHelper;
+namespace Common.Common.CacheHelper;
 
 
 public static class DistributedCacheExtensions

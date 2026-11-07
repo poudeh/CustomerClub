@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistent.Ef\LoyaltyCampaignAgg\" />
-  </ItemGroup>
-
 </Project>

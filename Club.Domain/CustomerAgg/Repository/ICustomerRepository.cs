@@ -1,4 +1,4 @@
-﻿using Common.Domain.Repository;
+﻿using Common.Common.Domain.Repository;
 
 namespace Club.Domain.CustomerAgg.Repository;
 

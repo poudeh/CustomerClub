@@ -1,5 +1,7 @@
 <Solution>
   <Folder Name="/Club/">
+    <Project Path="Club.Application/Club.Application.csproj" Id="b1508039-aa05-4b46-8b9b-dd39e4738a7d" />
+    <Project Path="Club.Config/Club.Config.csproj" Id="27ee10a1-96f6-4c95-b5b1-fafc498c044b" />
     <Project Path="Club.Domain/Club.Domain.csproj" />
     <Project Path="Club.Infrastructure/Club.Infrastructure.csproj" Id="929e56e5-fa09-4ee6-a73a-f5caf1f600b3" />
   </Folder>

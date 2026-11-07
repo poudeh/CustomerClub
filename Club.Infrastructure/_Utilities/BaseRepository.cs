@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
 using Club.Infrastructure.Persistent.Ef;
-using Common.Domain;
-using Common.Domain.Repository;
+using Common.Common.Domain;
+using Common.Common.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Shop.Infrastructure._Utilities;
+namespace Club.Infrastructure._Utilities;
 
 public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
 {

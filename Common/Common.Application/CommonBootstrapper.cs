@@ -1,8 +1,8 @@
-﻿using Common.Application.Validation;
+﻿using Common.Common.Application.Validation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Common.Application
+namespace Common.Common.Application
 {
     public class CommonBootstrapper
     {
