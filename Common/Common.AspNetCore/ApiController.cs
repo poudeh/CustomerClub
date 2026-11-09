@@ -1,11 +1,12 @@
 ﻿using System.Net;
 using Common.Application;
+using Common.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Common.AspNetCore;
+namespace Common.Common.AspNetCore;
 
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 [ApiController]
 public class ApiController : ControllerBase
 {

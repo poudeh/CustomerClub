@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Club.Domain\Club.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="MembershipTiers\" />
-  </ItemGroup>
-
 </Project>

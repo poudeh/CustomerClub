@@ -1,4 +1,5 @@
-﻿using Club.Domain.CustomerAgg.Enums;
+﻿using Club.Domain.ClubMemberAgg;
+using Club.Domain.CustomerAgg.Enums;
 using Common.Common.Domain;
 using Common.Domain;
 
@@ -15,6 +16,8 @@ public class Customer : AggregateRoot
     public string Email { get; private set; }
     public CustomerType Type { get; private set; }
     public bool IsActive { get; private set; }
+
+    public virtual ClubMember ClubMember { get; set; }
 
     protected Customer()
     {

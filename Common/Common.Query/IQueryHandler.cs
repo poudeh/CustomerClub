@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using Common.Query;
+using MediatR;
 
-namespace Common.Query;
+namespace Common.Common.Query;
 
 public interface IQueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, TResponse>
     where TQuery : IQuery<TResponse>

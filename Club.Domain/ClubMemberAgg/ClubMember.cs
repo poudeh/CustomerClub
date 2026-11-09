@@ -1,4 +1,6 @@
 ﻿using Club.Domain.ClubMemberAgg.Enums;
+using Club.Domain.CustomerAgg;
+using Club.Domain.LoyaltyAccountAgg;
 using Common.Common.Domain;
 
 namespace Club.Domain.ClubMemberAgg;
@@ -12,7 +14,9 @@ public class ClubMember : AggregateRoot
     public string MemberCode { get; private set; }
     public long CustomerId { get; private set; }
     public MemberStatus Status { get; private set; }
-    public DateTime JoinedAt { get; private set; }
+
+    public virtual Customer Customer { get; set; }
+    public virtual LoyaltyAccount LoyaltyAccount { get; set; }
 
     protected ClubMember()
     {
@@ -29,37 +33,22 @@ public class ClubMember : AggregateRoot
         CustomerId = customerId;
         MemberCode = memberCode;
         Status = MemberStatus.Pending;
-        JoinedAt = DateTime.UtcNow;
     }
 
     public void ChangeStatus(MemberStatus status)
     {
-        if (status == MemberStatus.Active)
+        Status = status switch
         {
-            if (Status != MemberStatus.Pending &&
-                Status != MemberStatus.Suspended)
-                throw new InvalidOperationException(
-                    "فقط اعضای در انتظار تأیید یا تعلیق‌شده قابلیت فعال‌سازی دارند.");
-        }
-        else if (status == MemberStatus.Suspended)
-        {
-            if (Status != MemberStatus.Active)
-                throw new InvalidOperationException(
-                    "فقط اعضای فعال قابلیت تعلیق دارند.");
-        }
-        else if (status == MemberStatus.Terminated)
-        {
-            if (Status == MemberStatus.Terminated)
-                throw new InvalidOperationException(
-                    "عضویت قبلاً خاتمه یافته است.");
-        }
-        else if (status == MemberStatus.Pending)
-        {
-            throw new InvalidOperationException(
-                "تغییر وضعیت عضو به در انتظار تأیید مجاز نیست.");
-        }
-
-        Status = status;
+            MemberStatus.Active when Status != MemberStatus.Pending && Status != MemberStatus.Suspended => throw
+                new InvalidOperationException("فقط اعضای در انتظار تأیید یا تعلیق‌شده قابلیت فعال‌سازی دارند."),
+            MemberStatus.Suspended when Status != MemberStatus.Active => throw new InvalidOperationException(
+                "فقط اعضای فعال قابلیت تعلیق دارند."),
+            MemberStatus.Terminated when Status == MemberStatus.Terminated => throw new InvalidOperationException(
+                "عضویت قبلاً خاتمه یافته است."),
+            MemberStatus.Pending => throw new InvalidOperationException(
+                "تغییر وضعیت عضو به در انتظار تأیید مجاز نیست."),
+            _ => status
+        };
     }
 
     public void UpdateMemberCode(string memberCode)

@@ -1,4 +1,4 @@
-﻿namespace Shop.Infrastructure._Utilities.MediatR;
+﻿namespace Club.Infrastructure._Utilities.MediatR;
 
 public enum PublishStrategy
 {

@@ -1,9 +1,5 @@
 ﻿using Club.Domain.MembershipTierAgg.Entities;
 using Club.Domain.MembershipTierAgg.Enums;
-using Common.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Common.Common.Domain;
 
 namespace Club.Domain.MembershipTierAgg;
@@ -21,22 +17,35 @@ public class MembershipTier : AggregateRoot
     {
     }
 
+    public MembershipTier(string title, TierType type)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+            throw new ArgumentException("Tier title is required.");
+
+        Title = title;
+        Type = type;
+    }
+
+    public void Edit(string title, TierType type)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+            throw new ArgumentException("Tier title is required.");
+
+        Title = title;
+        Type = type;
+    }
+
     // CREATE
-    public void AddRequirement( TierRequirementType type, RequirementOperator requirementOperator, decimal requiredValue)
+    public void AddRequirement(TierRequirementType type, RequirementOperator requirementOperator, decimal requiredValue)
     {
         if (_requirements.Any(x => x.Type == type))
             throw new InvalidOperationException(
                 "This requirement already exists.");
-
-        _requirements.Add(
-            new TierRequirement(
-                type,
-                requirementOperator,
-                requiredValue));
+        _requirements.Add(new TierRequirement(type, requirementOperator, requiredValue));
     }
 
     // UPDATE
-    public void UpdateRequirement( long requirementId, RequirementOperator requirementOperator, decimal requiredValue)
+    public void UpdateRequirement(long requirementId, RequirementOperator requirementOperator, decimal requiredValue)
     {
         var requirement = _requirements
             .FirstOrDefault(x => x.Id == requirementId);

@@ -1,4 +1,5 @@
-﻿using Club.Domain.LoyaltyAccountAgg.Enums;
+﻿using Club.Domain.ClubMemberAgg;
+using Club.Domain.LoyaltyAccountAgg.Enums;
 using Common.Common.Domain;
 using Common.Domain;
 namespace Club.Domain.LoyaltyAccountAgg;
@@ -14,6 +15,8 @@ public class LoyaltyAccount : AggregateRoot
     public decimal TotalSpentPoints { get; private set; }
     public LoyaltyAccountStatus Status { get; private set; }
     public DateTime? LastUpdatedAt { get; private set; }
+    public virtual ClubMember ClubMember { get; set; }
+
     protected LoyaltyAccount()
     {
     }

@@ -5,13 +5,8 @@ using Club.Domain.LoyaltyCampaignAgg;
 using Club.Domain.MembershipTierAgg;
 using Club.Domain.RoleAgg;
 using Club.Domain.UserAgg;
-using Common.Domain;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shop.Infrastructure._Utilities.MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Club.Infrastructure._Utilities.MediatR;
 using Common.Common.Domain;
 
 namespace Club.Infrastructure.Persistent.Ef;

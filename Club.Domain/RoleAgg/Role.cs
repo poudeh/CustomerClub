@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Common.Domain;
+using Common.Common.Domain.Exceptions;
 
 namespace Club.Domain.RoleAgg
 {

@@ -1,4 +1,6 @@
-﻿namespace Common.Domain.Exceptions
+﻿using Common.Domain.Exceptions;
+
+namespace Common.Common.Domain.Exceptions
 {
     public class NullOrEmptyDomainDataException : BaseDomainException
     {

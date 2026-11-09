@@ -1,9 +1,7 @@
 ﻿using Club.Domain.ClubMemberAgg;
+using Club.Domain.CustomerAgg;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Club.Infrastructure.Persistent.Ef.ClubMemberAgg;
 
@@ -32,8 +30,9 @@ public class ClubMemberConfiguration : IEntityTypeConfiguration<ClubMember>
             .IsRequired()
             .HasConversion<int>();
 
-        builder.Property(x => x.JoinedAt)
-            .IsRequired()
-            .HasColumnType("datetime2");
+        builder.HasOne(x=> x.Customer)
+            .WithOne(x=> x.ClubMember)
+            .HasForeignKey<ClubMember>(x => x.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

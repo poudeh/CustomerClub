@@ -1,9 +1,27 @@
-﻿namespace Shop.Infrastructure._Utilities.MediatR;
+﻿using MediatR;
+
+namespace Club.Infrastructure._Utilities.MediatR;
 
 public interface ICustomPublisher
 {
-    Task Publish<TNotification>(TNotification notification);
-    Task Publish<TNotification>(TNotification notification, PublishStrategy strategy);
-    Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken);
-    Task Publish<TNotification>(TNotification notification, PublishStrategy strategy, CancellationToken cancellationToken);
+    PublishStrategy DefaultStrategy { get; set; }
+
+    Task Publish<TNotification>(TNotification notification)
+        where TNotification : INotification;
+
+    Task Publish<TNotification>(
+        TNotification notification,
+        PublishStrategy strategy)
+        where TNotification : INotification;
+
+    Task Publish<TNotification>(
+        TNotification notification,
+        CancellationToken cancellationToken)
+        where TNotification : INotification;
+
+    Task Publish<TNotification>(
+        TNotification notification,
+        PublishStrategy strategy,
+        CancellationToken cancellationToken)
+        where TNotification : INotification;
 }

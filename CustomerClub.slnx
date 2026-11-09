@@ -4,6 +4,10 @@
     <Project Path="Club.Config/Club.Config.csproj" Id="27ee10a1-96f6-4c95-b5b1-fafc498c044b" />
     <Project Path="Club.Domain/Club.Domain.csproj" />
     <Project Path="Club.Infrastructure/Club.Infrastructure.csproj" Id="929e56e5-fa09-4ee6-a73a-f5caf1f600b3" />
+    <Project Path="Club.Queries/Club.Queries.csproj" Id="b2d5e44c-1355-46cb-8553-ea4eb924e016" />
+  </Folder>
+  <Folder Name="/Club/Endpoints/">
+    <Project Path="Club.Api/Club.Api.csproj" Id="6bf796ee-290a-44cc-96a2-694cd4d5c25c" />
   </Folder>
   <Folder Name="/Common/">
     <Project Path="Common/Common.csproj" />

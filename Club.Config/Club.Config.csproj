@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Club.Application\Club.Application.csproj" />
+    <ProjectReference Include="..\Club.Infrastructure\Club.Infrastructure.csproj" />
+    <ProjectReference Include="..\Club.Queries\Club.Queries.csproj" />
   </ItemGroup>
 
 </Project>

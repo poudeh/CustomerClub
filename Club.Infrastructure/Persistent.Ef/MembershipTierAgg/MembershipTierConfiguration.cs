@@ -20,10 +20,26 @@ public class MembershipTierConfiguration : IEntityTypeConfiguration<MembershipTi
             .IsRequired()
             .HasConversion<int>();
 
-        builder.HasMany(x => x.Requirements)
-            .WithOne(x=> x.MembershipTier)
-            .HasForeignKey(x => x.MembershipTierId)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.OwnsMany(x => x.Requirements, requirement =>
+        {
+            requirement.ToTable("TierRequirements");
+
+            requirement.WithOwner(x=> x.MembershipTier)
+                .HasForeignKey(x=> x.MembershipTierId);
+
+            requirement.HasKey(x=> x.Id);
+
+            requirement.Property(x => x.Type)
+                .IsRequired()
+                .HasConversion<int>();
+
+            requirement.Property(x => x.Operator)
+                .IsRequired()
+                .HasConversion<int>();
+
+            requirement.Property(x => x.RequiredValue)
+                .HasPrecision(18, 2);
+        });
 
         builder.Navigation(x => x.Requirements)
             .UsePropertyAccessMode(PropertyAccessMode.Field);

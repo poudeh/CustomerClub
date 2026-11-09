@@ -1,18 +1,21 @@
 ﻿using MediatR;
 
-namespace Shop.Infrastructure._Utilities.MediatR;
+namespace Club.Infrastructure._Utilities.MediatR;
 
-public class CustomMediator:Mediator
+public class CustomMediator : INotificationPublisher
 {
-    private readonly Func<IEnumerable<Func<INotification, CancellationToken, Task>>, INotification, CancellationToken, Task> _publish;
+    private readonly Func<IEnumerable<NotificationHandlerExecutor>, INotification, CancellationToken, Task> _publish;
 
-    public CustomMediator(ServiceFactory serviceFactory, Func<IEnumerable<Func<INotification, CancellationToken, Task>>, INotification, CancellationToken, Task> publish) : base(serviceFactory)
+    public CustomMediator(Func<IEnumerable<NotificationHandlerExecutor>, INotification, CancellationToken, Task> publish)
     {
         _publish = publish;
     }
 
-    protected override Task PublishCore(IEnumerable<Func<INotification, CancellationToken, Task>> allHandlers, INotification notification, CancellationToken cancellationToken)
+    public Task Publish(IEnumerable<NotificationHandlerExecutor> handlerExecutors, INotification notification, CancellationToken cancellationToken)
     {
-        return _publish(allHandlers, notification, cancellationToken);
+        return _publish(
+            handlerExecutors,
+            notification,
+            cancellationToken);
     }
 }

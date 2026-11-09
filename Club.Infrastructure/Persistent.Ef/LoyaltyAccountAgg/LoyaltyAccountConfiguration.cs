@@ -38,8 +38,8 @@ public class LoyaltyAccountConfiguration : IEntityTypeConfiguration<LoyaltyAccou
         builder.Property(x => x.LastUpdatedAt)
             .IsRequired(false);
 
-        builder.HasOne<ClubMember>()
-            .WithOne()
+        builder.HasOne(x=> x.ClubMember)
+            .WithOne(x=>x.LoyaltyAccount )
             .HasForeignKey<LoyaltyAccount>(x => x.ClubMemberId)
             .OnDelete(DeleteBehavior.Restrict);
     }
