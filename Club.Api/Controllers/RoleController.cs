@@ -1,15 +1,19 @@
-﻿using Club.Application.Roles.Create;
+﻿using Club.Api.Infrastructure.Security;
+using Club.Application.Roles.Create;
 using Club.Application.Roles.Edit;
+using Club.Domain.RoleAgg.Enums;
 using Club.Queries.Roles.DTOs;
 using Club.Queries.Roles.GetById;
 using Club.Queries.Roles.GetList;
 using Common.Application;
 using Common.AspNetCore;
+using Common.Common.Application;
 using Common.Common.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace Club.Api.Controllers;
 
+[PermissionChecker(Permission.Role_Management)]
 public class RoleController : ApiController
 {
     private readonly IMediator _mediator;

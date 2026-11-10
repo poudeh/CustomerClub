@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Common.Application;
+using FluentValidation;
 using MediatR;
 
 namespace Common.Common.Application.Pipelines;
@@ -12,7 +13,10 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
         _validators = validators;
     }
 
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(
+        TRequest request,
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         var context = new ValidationContext<TRequest>(request);
 
@@ -23,7 +27,18 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
 
         if (errors.Any())
         {
-            // باید بر اساس ساختار OperationResult پروژه پیاده‌سازی شود.
+            var errorMessages = errors
+                .Select(x => x.ErrorMessage)
+                .ToList();
+
+            if (typeof(TResponse) == typeof(OperationResult))
+            {
+                var result = OperationResult.Error(
+                    string.Join("، ", errorMessages));
+
+                return (TResponse)(object)result;
+            }
+
             throw new ValidationException(errors);
         }
 

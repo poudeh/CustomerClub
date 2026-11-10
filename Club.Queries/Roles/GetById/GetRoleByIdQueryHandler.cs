@@ -9,7 +9,6 @@ namespace Club.Queries.Roles.GetById;
 public class GetRoleByIdQueryHandler : IQueryHandler<GetRoleByIdQuery, RoleDto?>
 {
     private readonly ClubContext _context;
-
     public GetRoleByIdQueryHandler(ClubContext context)
     {
         _context = context;

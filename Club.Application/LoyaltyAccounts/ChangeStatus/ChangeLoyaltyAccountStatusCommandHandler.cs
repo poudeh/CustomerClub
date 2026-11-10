@@ -1,5 +1,6 @@
 using Club.Domain.LoyaltyAccountAgg.Repository;
 using Common.Application;
+using Common.Common.Application;
 
 namespace Club.Application.LoyaltyAccounts.ChangeStatus;
 

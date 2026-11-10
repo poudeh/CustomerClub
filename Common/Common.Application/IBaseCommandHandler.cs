@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Common.Common.Application;
+using MediatR;
 
 namespace Common.Application
 {

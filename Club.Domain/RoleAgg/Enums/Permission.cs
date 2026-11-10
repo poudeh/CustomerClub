@@ -17,5 +17,7 @@ public enum Permission
     Add_Inventory,
     Edit_Inventory,
     User_Management,
-    Seller_Panel
+    Customer_Management,
+    Seller_Panel,
+    ClubMember_Management
 }

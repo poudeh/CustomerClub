@@ -4,6 +4,9 @@ using Club.Domain.CustomerAgg.Enums;
 using Club.Domain.LoyaltyAccountAgg;
 using Club.Domain.RoleAgg;
 using Club.Domain.RoleAgg.Enums;
+using Club.Domain.UserAgg;
+using Club.Domain.UserAgg.Entities;
+using Common.Common.Application.SecurityUtil;
 using Microsoft.EntityFrameworkCore;
 namespace Club.Infrastructure.Persistent.Ef;
 
@@ -167,8 +170,7 @@ public static class ClubContextSeed
                     .ToList()),
 
             // مدیر باشگاه
-            new Role("مدیر باشگاه", new List<RolePermission>
-            {
+            new Role("مدیر باشگاه", [
                 new RolePermission(Permission.PanelAdmin),
                 new RolePermission(Permission.EditProfile),
                 new RolePermission(Permission.ChangePassword),
@@ -179,17 +181,16 @@ public static class ClubContextSeed
                 new RolePermission(Permission.Add_Inventory),
                 new RolePermission(Permission.Edit_Inventory),
                 new RolePermission(Permission.Seller_Management)
-            }),
+            ]),
 
             // اپراتور
-            new Role("اپراتور", new List<RolePermission>
-            {
-                new RolePermission (Permission.PanelAdmin),
+            new Role("اپراتور", [
+                new RolePermission(Permission.PanelAdmin),
                 new RolePermission(Permission.EditProfile),
                 new RolePermission(Permission.ChangePassword),
                 new RolePermission(Permission.Order_Management),
                 new RolePermission(Permission.Comment_Management)
-            })
+            ])
         };
 
         await context.Roles.AddRangeAsync(roles);
@@ -211,6 +212,56 @@ public static class ClubContextSeed
         if (await context.Users.AnyAsync())
             return;
 
-        // Insert Users
+        var adminRole = await context.Roles.FirstOrDefaultAsync(x => x.Title == "مدیر سیستم");
+        var managerRole = await context.Roles.FirstOrDefaultAsync(x => x.Title == "مدیر باشگاه");
+        var operatorRole = await context.Roles.FirstOrDefaultAsync(x => x.Title == "اپراتور");
+
+        if (adminRole == null || managerRole == null || operatorRole == null)
+            return;
+
+        var users = new List<User>();
+
+        // مدیر سیستم
+        var admin = new User("admin", "09120000001", null, Sha256Hasher.Hash("Admin@123")
+        );
+
+        admin.AddRole(new UserRole(adminRole.Id));
+        users.Add(admin);
+
+        // مدیر باشگاه
+        var manager = new User(
+            "manager",
+            "09120000002",
+            null,
+            Sha256Hasher.Hash("Manager@123")
+        );
+
+        manager.AddRole(new UserRole(managerRole.Id));
+        users.Add(manager);
+
+        // اپراتور اول
+        var operator1 = new User(
+            "operator1",
+            "09120000003",
+            null,
+            Sha256Hasher.Hash("Operator@123")
+        );
+
+        operator1.AddRole(new UserRole(operatorRole.Id));
+        users.Add(operator1);
+
+        // اپراتور دوم
+        var operator2 = new User(
+            "operator2",
+            "09120000004",
+            null,
+            Sha256Hasher.Hash("Operator@123")
+        );
+
+        operator2.AddRole(new UserRole(operatorRole.Id));
+        users.Add(operator2);
+
+        await context.Users.AddRangeAsync(users);
+        await context.SaveChangesAsync();
     }
 }

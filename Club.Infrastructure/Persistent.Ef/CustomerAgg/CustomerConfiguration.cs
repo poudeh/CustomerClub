@@ -11,6 +11,7 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
         // Table
         builder.ToTable("Customers");
 
+
         // Primary Key
         builder.HasKey(x => x.Id);
 
@@ -25,6 +26,8 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             .HasMaxLength(20);
 
         // EconomicCode
+        builder.Property(x => x.EconomicCode)
+            .IsRequired(false);
         builder.Property(x => x.EconomicCode)
             .HasMaxLength(20);
 
@@ -50,8 +53,5 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
         builder.HasIndex(x => x.NationalId)
             .IsUnique();
 
-        builder.HasIndex(x => x.EconomicCode)
-            .IsUnique()
-            .HasFilter("[EconomicCode] IS NOT NULL");
     }
 }

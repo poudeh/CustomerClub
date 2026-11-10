@@ -1,6 +1,7 @@
 using Club.Domain.ClubMemberAgg;
 using Club.Domain.ClubMemberAgg.Repository;
 using Common.Application;
+using Common.Common.Application;
 
 namespace Club.Application.ClubMembers.Create;
 
@@ -16,10 +17,8 @@ public class CreateClubMemberCommandHandler : IBaseCommandHandler<CreateClubMemb
     public async Task<OperationResult> Handle(CreateClubMemberCommand request, CancellationToken cancellationToken)
     {
         var clubMember = new ClubMember(request.CustomerId, request.MemberCode);
-
         await _repository.AddAsync(clubMember);
         await _repository.Save();
-
         return OperationResult.Success();
     }
 }

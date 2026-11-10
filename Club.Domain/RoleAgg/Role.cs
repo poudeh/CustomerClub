@@ -1,50 +1,41 @@
 ﻿using Common.Domain;
-using Common.Domain.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Common.Domain;
 using Common.Common.Domain.Exceptions;
 
-namespace Club.Domain.RoleAgg
+namespace Club.Domain.RoleAgg;
+public class Role : AggregateRoot
 {
-    public class Role : AggregateRoot
+    public string Title { get; private set; }
+    public List<RolePermission> Permissions { get; private set; }
+
+    private Role()
     {
-        public string Title { get; private set; }
-        public List<RolePermission> Permissions { get; private set; }
+    }
 
-        private Role()
-        {
-        }
+    public Role(string title, List<RolePermission> permissions)
+    {
+        NullOrEmptyDomainDataException.CheckString(title, nameof(title));
 
-        public Role(string title, List<RolePermission> permissions)
-        {
-            NullOrEmptyDomainDataException.CheckString(title, nameof(title));
+        Title = title;
+        Permissions = permissions;
+    }
 
-            Title = title;
-            Permissions = permissions;
-        }
+    public Role(string title)
+    {
+        NullOrEmptyDomainDataException.CheckString(title, nameof(title));
 
-        public Role(string title)
-        {
-            NullOrEmptyDomainDataException.CheckString(title, nameof(title));
+        Title = title;
+        Permissions = new List<RolePermission>();
+    }
 
-            Title = title;
-            Permissions = new List<RolePermission>();
-        }
+    public void Edit(string title)
+    {
+        NullOrEmptyDomainDataException.CheckString(title, nameof(title));
+        Title = title;
+    }
 
-        public void Edit(string title)
-        {
-            NullOrEmptyDomainDataException.CheckString(title, nameof(title));
-            Title = title;
-        }
-
-        public void SetPermissions(List<RolePermission> permissions)
-        {
-            Permissions = permissions;
-        }
+    public void SetPermissions(List<RolePermission> permissions)
+    {
+        Permissions = permissions;
     }
 }

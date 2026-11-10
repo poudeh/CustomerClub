@@ -1,17 +1,16 @@
 ﻿using Club.Api.Infrastructure.JwtUtil;
 using Club.Api.ViewModels.Auth;
-using Club.Domain.UserAgg;
+using Club.Application.Users.Register;
 using Club.Queries.BaseDtos;
-using Club.Queries.Users.DTOs;
 using Club.Queries.Users.GetByPhoneNumber;
-using Common.Application;
 using Common.AspNetCore;
+using Common.Common.Application;
 using Common.Common.Application.SecurityUtil;
 using Common.Common.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
 namespace Club.Api.Controllers;
+
 public class AuthController : ApiController
 {
     private readonly IMediator _mediator;
@@ -40,6 +39,15 @@ public class AuthController : ApiController
 
         var loginResult = await AddTokenAndGenerateJwt(authenticatedUser);
         return CommandResult(loginResult);
+    }
+
+    [HttpPost]
+    public async Task<ApiResult> Register(RegisterViewModel register)
+    {
+        var command = new RegisterUserCommand(UserName:register.UserName , PhoneNumber:register.PhoneNumber , 
+            Password:register.Password , gender:null , customerId:null);
+        var result = await _mediator.Send(command);
+        return CommandResult(result);
     }
 
     private Task<OperationResult<LoginResultDto?>> AddTokenAndGenerateJwt(AuthenticatedUserDto authenticatedUser)

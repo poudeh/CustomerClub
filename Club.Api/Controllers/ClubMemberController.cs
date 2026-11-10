@@ -1,13 +1,15 @@
-﻿using Club.Application.ClubMembers.ChangeClubMemberStatus;
+﻿using Club.Api.Infrastructure.Security;
+using Club.Application.ClubMembers.ChangeClubMemberStatus;
 using Club.Application.ClubMembers.Create;
 using Club.Application.ClubMembers.Edit;
+using Club.Domain.RoleAgg.Enums;
 using Common.AspNetCore;
 using Common.Common.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
 namespace Club.Api.Controllers;
 
+[PermissionChecker(Permission.ClubMember_Management)]
 public class ClubMemberController : ApiController
 {
     private readonly IMediator _mediator;

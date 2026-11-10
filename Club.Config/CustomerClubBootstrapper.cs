@@ -1,7 +1,9 @@
 ﻿using Club.Application.Roles.Create;
+using Club.Application.Users.Register;
 using Club.Infrastructure;
 using Club.Queries.Roles.GetById;
 using Common.Common.Application.Pipelines;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,12 +16,11 @@ public static class CustomerClubBootstrapper
         InfrastructureBootstrapper.Init(service, connectionString);
         service.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssembly(
-                typeof(CreateRoleCommand).Assembly);
+            cfg.RegisterServicesFromAssembly(typeof(CreateRoleCommand).Assembly);
             cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
             cfg.AddOpenBehavior(typeof(ExceptionBehavior<,>));
         });
-
+        service.AddValidatorsFromAssembly(typeof(RegisterUserCommandValidator).Assembly);
         service.AddMediatR(a =>
         {
             a.RegisterServicesFromAssembly(typeof(GetRoleByIdQuery).Assembly);

@@ -2,6 +2,8 @@
 using Club.Domain.ClubMemberAgg.Repository;
 using Club.Domain.CustomerAgg.Repository;
 using Common.Application;
+using Common.Common.Application;
+
 namespace Club.Application.Customers.ToggleActivation;
 
 public class ToggleActivationCommandHandler : IBaseCommandHandler<ToggleActivationCommand>

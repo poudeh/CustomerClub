@@ -3,7 +3,6 @@ using Club.Domain.UserAgg;
 using Club.Infrastructure.Persistent.Ef;
 using Club.Queries.Users.DTOs;
 using Microsoft.EntityFrameworkCore;
-
 namespace Club.Queries.Users;
 
 public static class UserMapper
@@ -41,5 +40,18 @@ public static class UserMapper
 
         userDto.Roles = roles;
         return userDto;
+    }
+
+    public static UserFilterData MapFilterData(this User user)
+    {
+        return new UserFilterData()
+        {
+            Id = user.Id,
+            Username = user.Username,
+            IsActive = user.IsActive,
+            CreationDate = user.CreationDate,
+            PhoneNumber = user.PhoneNumber,
+            Gender = user.Gender,
+        };
     }
 }

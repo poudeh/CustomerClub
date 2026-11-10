@@ -1,6 +1,7 @@
 using Club.Domain.UserAgg.Repository;
 using Common.Application;
 using Common.Application.SecurityUtil;
+using Common.Common.Application;
 using Common.Common.Application.SecurityUtil;
 
 namespace Club.Application.Users.AdminChangePassword;

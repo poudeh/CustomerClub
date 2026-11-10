@@ -1,6 +1,8 @@
 using Club.Domain.LoyaltyAccountAgg;
 using Club.Domain.LoyaltyAccountAgg.Repository;
 using Common.Application;
+using Common.Common.Application;
+
 namespace Club.Application.LoyaltyAccounts.Create;
 
 public class CreateLoyaltyAccountCommandHandler : IBaseCommandHandler<CreateLoyaltyAccountCommand>

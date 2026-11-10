@@ -67,7 +67,6 @@ namespace Club.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EconomicCode")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -100,10 +99,6 @@ namespace Club.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EconomicCode")
-                        .IsUnique()
-                        .HasFilter("[EconomicCode] IS NOT NULL");
 
                     b.HasIndex("NationalId")
                         .IsUnique();
@@ -330,6 +325,9 @@ namespace Club.Infrastructure.Migrations
                     b.Property<long?>("CustomerId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -338,12 +336,18 @@ namespace Club.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("Username")
                         .IsUnique();
@@ -453,6 +457,15 @@ namespace Club.Infrastructure.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Club.Domain.UserAgg.User", b =>
+                {
+                    b.HasOne("Club.Domain.CustomerAgg.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Club.Domain.ClubMemberAgg.ClubMember", b =>

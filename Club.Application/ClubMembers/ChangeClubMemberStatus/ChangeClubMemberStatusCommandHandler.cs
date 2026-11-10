@@ -1,5 +1,7 @@
 ﻿using Club.Domain.ClubMemberAgg.Repository;
 using Common.Application;
+using Common.Common.Application;
+
 namespace Club.Application.ClubMembers.ChangeClubMemberStatus;
 
 public class ChangeClubMemberStatusCommandHandler(IClubMemberRepository repository) : IBaseCommandHandler<ChangeClubMemberStatusCommand>
